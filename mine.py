@@ -10,10 +10,8 @@ class MovieLibraryApp:
         self.root = root
         self.root.title("Movie Library")
         self.root.geometry("800x500")
-        
-        # Загружаем данные при старте
+       
         self.movies = self.load_movies()
-        # Список для отображения (нужен для фильтрации)
         self.displayed_movies = self.movies.copy()
         
         self.create_widgets()
@@ -22,7 +20,7 @@ class MovieLibraryApp:
     def create_widgets(self):
         """Создает интерфейс: поля, кнопки и таблицу."""
         
-        # --- Блок фильтрации ---
+        #фильтрации
         filter_frame = tk.LabelFrame(self.root, text="Фильтрация", font=("Arial", 12))
         filter_frame.pack(pady=10, fill="x", padx=20)
 
@@ -41,7 +39,7 @@ class MovieLibraryApp:
         clear_btn.grid(row=0, column=5, padx=10)
 
 
-        # --- Блок добавления ---
+        #добавления
         input_frame = tk.LabelFrame(self.root, text="Добавить новый фильм", font=("Arial", 12))
         input_frame.pack(pady=10, fill="x", padx=20)
 
@@ -65,7 +63,7 @@ class MovieLibraryApp:
         add_btn.grid(row=3, columnspan=4, pady=15)
 
 
-        # --- Таблица ---
+        #Таблица
         columns = ("title", "genre", "year", "rating")
         self.tree = ttk.Treeview(self.root, columns=columns, show="headings")
         
@@ -155,10 +153,10 @@ class MovieLibraryApp:
          filtered_genre = self.filter_genre.get().strip().lower()
          filtered_year = self.filter_year.get().strip()
          
-         # Создаем новый список для отображения на основе фильтров
+         #новый список
          filtered_list = []
          
-         for movie in self.movies: # Фильтруем по основному списку!
+         for movie in self.movies:
              match_genre = True
              match_year = True
              
@@ -179,8 +177,7 @@ class MovieLibraryApp:
          """Сбрасывает фильтр и показывает все фильмы."""
          self.filter_genre.delete(0, tk.END)
          self.filter_year.delete(0, tk.END)
-         
-         # Сбрасываем отображаемый список к полному списку фильмов
+     
          self.displayed_movies = self.movies.copy()
          
          self.update_treeview()
